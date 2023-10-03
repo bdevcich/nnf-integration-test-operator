@@ -1,0 +1,12 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: IntTestHelper
+metadata:
+  labels:
+    app.kubernetes.io/name: inttesthelper
+    app.kubernetes.io/instance: inttesthelper-sample
+    app.kubernetes.io/part-of: nnf-integration-test-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: nnf-integration-test-operator
+  name: inttesthelper-sample
+spec:
+  # TODO(user): Add fields here

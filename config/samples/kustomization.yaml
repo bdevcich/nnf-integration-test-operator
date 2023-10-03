@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- nnf_v1alpha1_inttestmanager.yaml
+- nnf_v1alpha1_inttesthelper.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples

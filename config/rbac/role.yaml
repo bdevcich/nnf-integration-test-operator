@@ -1,0 +1,58 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: manager-role
+rules:
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttesthelpers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttesthelpers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttesthelpers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttestmanagers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttestmanagers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - nnf.cray.hpe.com
+  resources:
+  - inttestmanagers/status
+  verbs:
+  - get
+  - patch
+  - update
