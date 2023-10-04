@@ -100,3 +100,17 @@ spec:
               memory: 64Mi
       serviceAccountName: controller-manager
       terminationGracePeriodSeconds: 10
+---
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: IntTestManager
+metadata:
+  name: manager
+  namespace: system
+spec:
+  container:
+    name: helper
+    command:
+      - /manager
+    args:
+      - --controller helper
+    image: controller:latest

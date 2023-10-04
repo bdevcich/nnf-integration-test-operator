@@ -5,6 +5,24 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  verbs:
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
+  - dm.cray.hpe.com
+  resources:
+  - datamovementmanagers
+  verbs:
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
   - nnf.cray.hpe.com
   resources:
   - inttesthelpers

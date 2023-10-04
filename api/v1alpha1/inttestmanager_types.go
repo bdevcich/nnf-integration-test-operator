@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -31,7 +32,7 @@ type IntTestManagerSpec struct {
 	// Pod template to inject into the DM Worker Daemonset to allow for
 	// verification of data movement through the direct use of the volumes
 	// attached to the DM worker pods.
-	// DMHelperTemplate corev1.PodTemplateSpec `json:"template"`
+	Container corev1.Container `json:"container"`
 }
 
 // IntTestManagerStatus defines the observed state of IntTestManager

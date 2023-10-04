@@ -19,11 +19,14 @@ package controller
 import (
 	"context"
 
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
 
+	dmv1alpha1 "github.com/NearNodeFlash/nnf-dm/api/v1alpha1"
 	nnfv1alpha1 "github.com/nearnodeflash/nnf-integration-test-operator/api/v1alpha1"
 )
 
@@ -36,6 +39,8 @@ type IntTestManagerReconciler struct {
 //+kubebuilder:rbac:groups=nnf.cray.hpe.com,resources=inttestmanagers,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=nnf.cray.hpe.com,resources=inttestmanagers/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=nnf.cray.hpe.com,resources=inttestmanagers/finalizers,verbs=update
+//+kubebuilder:rbac:groups=dm.cray.hpe.com,resources=datamovementmanagers,verbs=get;list;watch;update
+//+kubebuilder:rbac:groups=apps,resources=daemonsets,verbs=get;list;watch;update
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
