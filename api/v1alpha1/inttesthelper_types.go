@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"github.com/DataWorkflowServices/dws/utils/updater"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -25,17 +26,15 @@ import (
 
 // IntTestHelperSpec defines the desired state of IntTestHelper
 type IntTestHelperSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of IntTestHelper. Edit inttesthelper_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Command string `json:"command,omitempty"`
 }
 
 // IntTestHelperStatus defines the observed state of IntTestHelper
 type IntTestHelperStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Command     string          `json:"command,omitempty"`
+	Output      string          `json:"output,omitempty"`
+	Error       string          `json:"error,omitempty"`
+	ElapsedTime metav1.Duration `json:"elapsedTime,omitempty"`
 }
 
 //+kubebuilder:object:root=true
@@ -57,6 +56,10 @@ type IntTestHelperList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []IntTestHelper `json:"items"`
+}
+
+func (i *IntTestHelper) GetStatus() updater.Status[*IntTestHelperStatus] {
+	return &i.Status
 }
 
 func init() {

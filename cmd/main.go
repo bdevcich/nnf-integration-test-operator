@@ -33,6 +33,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 
+	dmv1alpha1 "github.com/NearNodeFlash/nnf-dm/api/v1alpha1"
 	nnfv1alpha1 "github.com/nearnodeflash/nnf-integration-test-operator/api/v1alpha1"
 	"github.com/nearnodeflash/nnf-integration-test-operator/internal/controller"
 	//+kubebuilder:scaffold:imports
@@ -51,7 +52,9 @@ const (
 func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
+	utilruntime.Must(dmv1alpha1.AddToScheme(scheme))
 	utilruntime.Must(nnfv1alpha1.AddToScheme(scheme))
+
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -98,6 +101,12 @@ func main() {
 			"nnf-integration-test-system": {},
 			"nnf-dm-system":               {},
 		}}
+	} else {
+		options.Cache = cache.Options{DefaultNamespaces: map[string]cache.Config{
+			"nnf-integration-test-system": {},
+			"nnf-dm-system":               {},
+			os.Getenv("NNF_NODE_NAME"):    {},
+		}}
 	}
 
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), options)
@@ -107,7 +116,6 @@ func main() {
 	}
 
 	if controllerType == controllerTypeManager {
-
 		if err = (&controller.IntTestManagerReconciler{
 			Client: mgr.GetClient(),
 			Scheme: mgr.GetScheme(),
@@ -115,11 +123,11 @@ func main() {
 			setupLog.Error(err, "unable to create controller", "controller", "IntTestManager")
 			os.Exit(1)
 		}
-
 	} else {
 		if err = (&controller.IntTestHelperReconciler{
-			Client: mgr.GetClient(),
-			Scheme: mgr.GetScheme(),
+			Client:         mgr.GetClient(),
+			Scheme:         mgr.GetScheme(),
+			WatchNamespace: os.Getenv("NNF_NODE_NAME"),
 		}).SetupWithManager(mgr); err != nil {
 			setupLog.Error(err, "unable to create controller", "controller", "IntTestHelper")
 			os.Exit(1)

@@ -32,7 +32,7 @@ type IntTestManagerSpec struct {
 	// Pod template to inject into the DM Worker Daemonset to allow for
 	// verification of data movement through the direct use of the volumes
 	// attached to the DM worker pods.
-	Container corev1.Container `json:"container"`
+	Template corev1.PodTemplateSpec `json:"template"`
 }
 
 // IntTestManagerStatus defines the observed state of IntTestManager

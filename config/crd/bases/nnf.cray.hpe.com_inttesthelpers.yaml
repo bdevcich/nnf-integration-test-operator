@@ -34,13 +34,20 @@ spec:
           spec:
             description: IntTestHelperSpec defines the desired state of IntTestHelper
             properties:
-              foo:
-                description: Foo is an example field of IntTestHelper. Edit inttesthelper_types.go
-                  to remove/update
+              command:
                 type: string
             type: object
           status:
             description: IntTestHelperStatus defines the observed state of IntTestHelper
+            properties:
+              command:
+                type: string
+              elapsedTime:
+                type: string
+              error:
+                type: string
+              output:
+                type: string
             type: object
         type: object
     served: true
