@@ -1,8 +1,12 @@
 # nnf-integration-test-operator
-// TODO(user): Add simple overview of use/purpose
+
+Operator to support nnf integreation testing. This is a work in progress.
 
 ## Description
-// TODO(user): An in-depth paragraph about your project and overview of use
+
+This is an experimental operator that can be used to support operations for
+integration testing. This is not currently used, but may be in the future. Or
+some flavor of it.
 
 ## Getting Started
 You’ll need a Kubernetes cluster to run against. You can use [KIND](https://sigs.k8s.io/kind) to get a local cluster for testing, or run against a remote cluster.
